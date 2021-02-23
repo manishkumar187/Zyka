@@ -1,0 +1,55 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    .bg-img {
+        background: url("/static/images/cone.jpg");
+        
+    }
+    .abcd:hover{
+        box-shadow: 0px 0px 10px gray;
+       
+    }
+    @media only screen and (max-width: 768px) {
+    .banner15{
+      width: 50%;
+      
+      
+  }}
+</style>
+{% endblock %}
+{% block dashboard %}
+<div class="row">
+    <div class="col-md-12 text-center bg-img text-light mt-md-5" style="box-shadow: 0px 0px 10px black;">
+        <h3 style="color: white;"><em><marquee>Dashboard & My Customer {{customers|length}}</marquee></em></h3>
+    </div>
+    <div class="alert alert-warning col-md-12">
+        <p style="text-align: center;"><em>Total {{times}} Products</em></p>
+    </div>
+    {% for i in customers %}
+    <div class="col-md-3 p-2 banner15">
+        <div class="card abcd">
+            <div class="card-header">
+                <div style="text-align: center;">
+                    {% if i.profile_pic %}
+                    <img src="/media/{{i.profile_pic}}" alt="" height="200px" width="100%">
+                    {% else %}
+                    <img src="{% static 'images/user.jpg'%}" alt="" height="200px" width="100%">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body">
+                <h4>{{i.first_name}} {{i.last_name}}</h4>
+                <p><i class="fa fa-user"></i> {{i.username}}</p>
+                <p><em>{{i.email}}</em></p>
+                <p><ins>{{i.contact}}</ins></p>
+                <small>Member Since: {{i.join}}</small>
+                
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+{% endblock %}

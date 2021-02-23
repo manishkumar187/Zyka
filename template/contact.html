@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    @media only screen and (max-width: 768px) {
+    .banner7{
+      height:250px;
+      width: 100%;
+    }
+    .banner8{
+      font-size: 15px;
+    }}
+    
+      
+</style>
+      
+{% endblock %}
+{% block myblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 bg-secondary text-center py-2 text-light mt-5">
+            <h3 style="line-height: 60px; height: 40px;color: greenyellow;"><marquee behavior="alternate" direction="left"><em>You Can Contact Our Executive</em></marquee></h3>
+        </div>
+        <div class="col-md-6 my-1 ">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57584.61316165759!2d83.94344167439652!3d25.570391759000913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399275985564a721%3A0x3c49a62eeb3d93be!2sBuxar%2C%20Bihar!5e0!3m2!1sen!2sin!4v1607058648242!5m2!1sen!2sin"
+                width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                tabindex="0" class="banner7"></iframe>
+    
+        </div>
+        <div class="col-md-6 my-1 shadow-sm">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="">Your Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Name ..." name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Contact Number</label>
+                    <input type="tel" class="form-control" placeholder="Enter Contact Number ..." name="contact" required id="contact">
+                </div>
+                <div class="form-group">
+                    <label for="">Subject</label>
+                    <input type="text" class="form-control" placeholder="Enter Subject ..." name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Message</label>
+                    <textarea id="" cols="10" rows="5" class="form-control" name="message" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Send Message">
+                </div>
+            </form>
+        </div>
+    
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="text-align: center;" class="alert alert-primary banner8">Previous Feedback</h2>
+        </div>
+        <div class="table-responsive">
+            <div class="col-md-12 banner8">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Contact Number</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for i in message %}
+                            <tr>
+                                <td style="text-align: justify;">{{i.id}}</td>
+                                <td style="text-align: justify;">{{i.name}}</td>
+                                <td style="text-align: justify;">{{i.contact_number}}</td>
+                                <td style="text-align: justify;">{{i.subject}}</td>
+                                <td style="text-align: justify;">{{i.message}}</td>
+                                <td style="text-align: justify;">{{i.added_on}}</td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+    </div>
+
+</div>
+
+{% if status %}
+<script>
+    alert("{{status}}")
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    .bg-img {
+        background: url("/static/images/cone.jpg");
+
+    }
+</style>
+
+{% endblock %}
+{% block dashboard %}
+    <div class="row">
+        <div class="col-md-12 bg-img text-center text-light p-3 mt-md-5">
+            <h3><marquee behavior="alternate" direction="left"><em>Dashboard & Edit Profile</em></marquee></h3>
+        </div>
+        <div class="col-md-6 mx-auto my-2 bg-light">
+            <div style="text-align: center;">
+                {% if data.profile_pic %}
+                <img src="/media/{{data.profile_pic}}" alt="" height="100px" width="100px" style="border-radius: 50%;">
+                {% else %}
+                <img src="{% static 'images/user.jpg'%}" alt="" height="100px" width="100px" style="border-radius: 50%;">
+                {% endif %}
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if status %}
+                <div class="alert alert-primary">{{status}}</div>
+                {% endif %}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">First Name</label>
+                            <input type="text" class="form-control" name="fname" placeholder="Enter First Name.."
+                                value="{{user.first_name}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Last Name</label>
+                            <input type="text" class="form-control" name="lname" placeholder="Enter Last Name.."
+                                value="{{user.last_name}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter Email.." value="{{user.email}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Profile Picture</label>
+                            <input type="file" class="form-control" name="image">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Contact</label>
+                            <input type="number" class="form-control" name="contact" placeholder="Enter Contact.."
+                                pattern="[0-9]{10}" title="Number must contain 10 digit only" value="{{data.contact_number}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Age</label>
+                            <input type="number" class="form-control" name="age" placeholder="Enter Age.." min="15"
+                                max="99" value="{{data.age}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">City</label>
+                            <input type="text" class="form-control" name="city" placeholder="Enter City.." value="{{data.city}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Gender</label>
+                            <select name="gender" class="form-control">
+                                <option value="Male">Male</option>
+                                {% if data.gender == "Female" %}
+                                <option value="Female" selected>Female</option>
+                                {% else %}
+                                <option value="Female">Female</option>
+                                {% endif %}
+                                
+                                {% if data.gender == "Other" %}
+                                <option value="Other" selected>Other</option>
+                                {% else %}
+                                <option value="Other">Other</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <textarea name="address" id="" cols="20" rows="5" required placeholder="Enter Address"
+                        class="form-control">{{data.address}}</textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="changeprofile" value="Save Changes" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

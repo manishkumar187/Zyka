@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block myblock %}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-md-3 mx-auto mt-5 text-center p-3" style="box-shadow: 0px 0px 10px gray;">
+            <img src="{% static 'images/cancel.png'%}" alt="" height="150" width="100">
+            <br>
+            <h5 class="alert alert-success">PAYMENT FAILED</h5>
+            <div class="my-3">
+                <a href="{% url 'cart'%}" class="btn btn-success m-1">Continue Shopping </a>
+                <a href="{% url 'cust_dashboard'%}" class="btn btn-primary m-1">Go to Dashboard </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

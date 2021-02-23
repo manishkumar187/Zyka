@@ -1,0 +1,72 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    .bg-img {
+        background: url("/static/images/cone.jpg");
+        
+    }
+</style>
+{% endblock %}
+{% block dashboard %}
+<div class="row">
+    <div class="col-md-12 bg-img text-center text-light py-2">
+        <h4>Dashboard & Order History</h4>
+    </div>
+    <div class="col-md-12 alert alert-primary">
+        {% for i in order_history %}
+        <div class="card my-4">
+            <div class="card-header">
+                <strong class="float-left">Order ID: {{i.order_id}}</strong>
+                <em class="float-right">Processed On: {{i.date}}</em>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        {% for j in i.products %}
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Product Price </th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><img src="/media/{{j.product_image}}" alt="" width="200" height="100"></td>
+                            <td><h4>{{j.product_name}}</h4></td>
+                            <td>&#8377; {{j.sale_price}}</td>
+                            <td><a href="{% url 'single_product'%}?pid={{j.id}}" class="btn btn-success"><i class="fa fa-eye"></i>View</a></td>
+                        </tr>
+                            
+                        
+                        {% endfor %}
+                    </table>
+
+                </div>
+                
+            </div>
+            <div class="card-footer">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>INVOICE ID</th>
+                            <td>{{i.invoice}}</td>
+                            <th>STATUS</th>
+                            <td>
+                                {% if i.status %}
+                                <button class="btn btn-success btn-block"><i class="fa fa-check"></i>Success</button>
+                                {% else %}
+                                <button class="btn btn-danger btn-block" >&times; Pending</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+    
+                    </table>
+
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

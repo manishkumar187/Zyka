@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    @media only screen and (max-width: 768px) {
+    .banner6{
+      height:250px;
+      width: 100%;
+    }
+    }
+      
+</style>
+      
+{% endblock %}
+{% block myblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 px-0 mt-5">
+            <img src="{% static 'images/cone.jpg'%}" alt="" height="500px" width="100%" style="background-attachment: fixed; background-size: 100% 100%;" class="banner6">
+        </div>
+        <div class="col-md-12 p-0">
+            <h3 class="bg-dark text-light text-center" ><marquee behavior="alternate" direction="left">Self Pickup option now available on Zayka. A few days ago, we hit 21 million monthly orders, and our food delivery services are currently present in 41 cities.</marquee> </h3>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card">
+                <div class="card-header">
+                    <p>How does zyka food delivery work?</p>
+                </div>
+                <div class="card-body text-justify">
+                    <p>To begin with, through its food delivery business, Zayka charges a commission to the restaurants on the basis of orders. While users pay a delivery fee, Zayka earns through restaurants who pay a commission for each delivery, which is then split among the delivery partner and the company.</p>
+                </div>
+                <div class="card-footer">
+                    <small><em>From Zyka & Team</em></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card">
+                <div class="card-header">
+                    <p>How do you order food on zayka?</p>
+                </div>
+                <div class="card-body text-justify">
+                    Search for the Restaurant you want your food from. 3. Now that the restaurant's page is open, go to “Order Delivery” from the right side. 4.
+                </div>
+                <div class="card-footer">
+                    <small><em>From Zyka & Team</em></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card">
+                <div class="card-header">
+                    <p>What is the best food to order online?</p>
+                </div>
+                <div class="card-body text-justify">
+                    <p>5 of the best foods to get delivered.</p>
+                        <ul type="disc">
+                            <li>Grilled meats and vegetables reheat well. ...</li>
+                            <li>Fried chicken, surprisingly, is a great choice. ...</li>
+                            <li>Deli sandwiches are made to last. ...</li>
+                            <li>Barbecue travels well. ...</li>
+                            <li>Poké bowls are a popular choice for a reason.</li>    
+                        </ul>
+                        
+                </div>
+                <div class="card-footer">
+                    <small><em>From Zyka & Team</em></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-2">
+            <div class="card">
+                <div class="card-header">
+                    <p>How do I join zayka as a delivery boy?</p>
+                </div>
+                <div class="card-body text-justify">
+                    <ul>
+                        <li>Bike.</li>
+                        <li>Driving License & RC Book.</li>
+                        <li>PAN Card & Account details for Salary.</li>
+                        <li>Adhar card for Proof.</li>
+                        <li>Smartphone where order can be received by installing Zomato app.</li>
+                        <li>You have to deposit 1000 rupees for Bag and 2 T-shirts.</li>
+                        <li>High School Mark Sheet.</li>  
+                    </ul>
+                    
+                </div>
+                <div class="card-footer">
+                    <small><em>From Zyka & Team</em></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

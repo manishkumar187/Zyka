@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    th{
+        width: 30%;
+    }
+    .hover:hover{
+        box-shadow: 0px 0px 10px black;
+
+    }
+    @media only screen and (max-width: 768px) {
+    .banner9{
+      height:300px;
+      width: 100%;
+      font-size: 25px;
+      
+  }
+  .banner10{
+      font-size: 20px;
+  }
+  .banner11{
+      width: 50%;
+      
+  }
+  .banner12{
+      height: 100px;
+  }
+  }
+</style>
+{% endblock %}
+{% block myblock %}
+<div class="container-fluid">
+    <div class="row" >
+        <div class="col-md-12 px-0 mt-5" >
+            <div class="carousel slide banner9" data-ride="carousel" id="myslider">
+                <ol class="carousel-indicators">
+                    <li class="active" data-target="#myslider" data-slide-to="0"></li>
+                    <li data-target="#myslider" data-slide-to="1"></li>
+                    <li data-target="#myslider" data-slide-to="2"></li>
+                    <li data-target="#myslider" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner banner9">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/cone.jpg' %}" alt="" height="500px" width="100%">
+                        <div class="carousel-caption">
+                            <h2 class="caption banner9">Fresh And Delicious Food <br>For Your Health</h2>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/ctwo.jpg' %}" alt="" height="500px" width="100%">
+                        <div class="carousel-caption">
+                            <h2 class="caption banner9">Fresh And Delicious Food <br>For Your Health</h2>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/cthree.jpg' %}" alt="" height="500px" width="100%">
+                        <div class="carousel-caption">
+                            <h2 class="caption banner9">Fresh And Delicious Food <br>For Your Health</h2>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/cfour.jpg' %}" alt="" height="500px" width="100%">
+                        <div class="carousel-caption">
+                            <h2 class="caption banner9">Fresh And Delicious Food <br>For Your Health</h2>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 alert alert-primary text text-center ">
+            {% if abcd %}
+            <h3 class="banner10">Total {{products|length}} products found</h3>
+            {% else %}
+            <h3 class="banner10"><marquee behavior="alternate" direction="left"><em>Total Products {{products|length}}</em></marquee></h3>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+    
+<div class="container-fluid alert alert-danger">
+    <div class="row">
+        {% for i in products %}
+        <div class="col-md-2 p-2 banner11">
+            <div style="border: 1px solid gray;" class="p-1 hover">
+                <a href="{% url 'single_product' %}?pid={{i.id}}">
+                    <img src="/media/{{i.product_image}}" alt="" height="200px" width="100%" class="banner12">
+                </a>
+                <h5>
+                    <a href="{% url 'single_product' %}?pid={{i.id}}" style="text-decoration: none;">{{i.product_name}}</a>
+                </h5>
+                <h6><del><span>&#8377; {{i.product_price}}</del></span>
+                <span>&#8377; {{i.sale_price}}</span></h4>
+                <h6><strong>{{i.product_category.cat_name}}</strong></h5>
+                <form action="{% url 'cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{i.id}}" name="pid">
+                    <input type="hidden" value="1" name="quantity">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="fa fa-shopping-cart"></i>Add To Cart
+                    </button>
+
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+{% endblock %}
+

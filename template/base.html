@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Fonticon/css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block head %}
+
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 px-0">
+                <nav class="navbar bg-primary navbar-dark navbar-expand-md fixed-top">
+                    <a href="{% url 'index'%}" class="navbar-brand"><em>Zyka</em></a>
+                    <button class="navbar-toggler" data-target="#mymenu" data-toggle="collapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="mymenu" class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a href="{% url 'index' %}" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'about' %}" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'all_products' %}" class="nav-link">All Products</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
+                                <div class="dropdown-menu">
+                                    {% for c in category %}
+                                    <a href="{% url 'all_products' %}?cat={{c.id}}"
+                                        class="dropdown-item">{{c.cat_name}}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li>
+                                <form class="form-inline my-2 mt-2 my-lg-0" action="{% url 'all_products'%}">
+                                    <input class="form-control mr-2" type="search" placeholder="Search by Product Name..."
+                                        aria-label="Search" name="qry" size="50" >
+                                    <button class="btn btn-outline-light m-1" type="submit">Search</button>
+                                </form>
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a href="{% url 'cust_dashboard' %}" class="nav-link">Welcome {{user.first_name}}</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 're' %}" class="nav-link btn btn-outline-dark m-1">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link  btn btn-outline-dark m-1" data-toggle="modal"
+                                    data-target="#mymodal">Login</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="modal fade" id="mymodal">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'user_login' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="">Username</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" name="username" class="form-control"
+                                                placeholder="Enter Username...">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Password</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-key"></i>
+                                                </span>
+                                            </div>
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="Enter Password...">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="rememberme">
+                                        <label for="">Remember me</label>
+                                        <a href="{% url 'forgot_pass' %}">Forgot Password</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="submit" class="btn btn-success">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        {% block myblock %}
+        {% endblock %}
+
+
+        <div class="container-fluid bg-primary">
+            <div class="row" >
+                <div class="col-md-4 text-center p-3">
+                    <img src="{% static 'images/dinner.png' %}" alt="" style="border-radius: 50%; " width="50px"
+                        height="50px">
+                    <span style="color: white; font-size: 20px;">Resta</span>
+                    <p style="color: white;"><small>5th flora, 700/D kings road, green<br>
+                            lane New York-1782<br>
+                            +10 367 826 2567<br>
+                            contact@carpenter.com</small></p>
+
+                </div>
+                <div class="col-md-4 p-3" style="text-align: center;">
+                    <p style="color: white;">Useful Links</p>
+                    <p><a href="{% url 'index'%}" style="color: white; text-decoration: none; font-size: 15px;">Home /</a>
+                       <a href="{% url 'all_products'%}" style="color: white; text-decoration: none;font-size: 15px;">Menu</a></p>
+                       <p> <a href="{% url 'about'%}" style="color: white;text-decoration: none;font-size: 15px;">About /</a>
+                       <a href="{% url 'contact'%}" style="color: white;text-decoration: none;font-size: 15px;">Contact</a></p> 
+                </div>
+                
+                
+                <div class="col-md-4 p-3" style="color: white;">
+                    <p>We help 24*7</p>
+                    <p><em>Contact: <ins>7973474237</ins></em></p>
+                    <p><em>Email: <ins>maniskmr555@gmail.com</ins></em></p>
+
+                </div>
+                <div class="col-md-12 text-center">
+                    <small style="color: white;">Copyright ©2020 All rights reserved | This template is made with by
+                        Colorlib</small>
+
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>

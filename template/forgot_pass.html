@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block myblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 mx-auto mt-md-5 p-3">
+            <div class="my-5 p-4" style="box-shadow: 0px 0px 10px black;">
+                <h3 style="text-align: center;">Reset Your Password</h3>
+                <hr>
+            <div id="result"></div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="">Enter Your Username</label>
+                    <input type="text" class="form-control" placeholder="Enter Username Here...." id="un" name="username">
+                </div>
+    
+                <button type="button" class="btn btn-warning" onclick="getpass()" id="continue">Click to Continue</button>
+                <div style="display: none; text-align: center;" id="spin" >
+                    <span class="spinner spinner-grow"></span>
+                </div>
+    
+                <div class="form-group" style="display: none;" id="afterotp">
+                    <label for="">Enter OTP</label>
+                    <input type="number" class="form-control" placeholder="Enter OTP Here...." id="uotp">
+    
+                    <button onclick="matchotp()" type="button" class="btn btn-info mt-2">Verify OTP</button>
+                </div>
+    
+                <div style="display: none;" id="changepass">
+                    <div class="form-group">
+                        <label for="">Enter new password</label>
+                        <input type="password" name="npass" class="form-control" placeholder="Enter new password">
+                    </div>
+                    <div class="form-group">
+                        
+                        <input type="submit" value="CHANGE MY PASSWORD" class="btn btn-success">
+                    </div>
+                </div>
+    
+    
+                <input type="hidden" id="realotp">
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getpass()
+    {
+        $("#spin").show()
+        let username = $("#un").val()
+        $.ajax({
+            url:"{% url 'reset_password' %}",
+            type:"get",
+            data:{username:username},
+            success:function(data){
+                $("#spin").hide()
+                if(data.status=="failed"){
+                    $("#result").html("<p class='alert alert-danger'>No user with this username found</p>")
+
+                }
+                else if(data.status=="error")
+                {
+                    $("#result").html("<p class='alert alert-danger'>Could not sent email to "+data.email+" Something went wrong!!!</p>")
+                }
+                else if(data.status=="sent"){
+                    $("#result").html("<p class='alert alert-success'>An OTP sent to your registered Email ID "+data.email+"</p>")
+                    $("#continue").hide()
+                    $("#afterotp").slideDown(1000);
+                    $("#realotp").val(data.rotp)
+
+                }
+            }
+        })
+    }
+    function matchotp(){
+        uotp = $("#uotp").val();
+        rotp = $("#realotp").val();
+
+        if(uotp==rotp){
+            $("#afterotp").hide();
+            $("#changepass").fadeIn(1000)
+            $("#result").html("<p class='alert alert-success'>Validation Success !!!</p>");
+
+        }
+        else{
+            $("#result").html("<p class='alert alert-danger'>Incorrect OTP</p>");
+        }
+    }
+</script>
+{% if status %}
+<script>
+    alert("{{status}}")
+    window.location="/"
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<style>
+    th {
+        width: 30%;
+    }
+    
+</style>
+{% endblock %}
+{% block myblock %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-6 mt-4">
+            <div class="text-center">
+                <img src="/media/{{product.product_image}}" alt="No Image" style="height: 300px;" width="100%">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>PRODUCT ID</th>
+                            <td>{{product.id}}</td>
+                        </tr>
+                        <tr>
+                            <th>PRODUCT NAME</th>
+                            <td>{{product.product_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Market Price</th>
+                            <td><del>&#8377;{{product.product_price}}</del></td>
+                        </tr>
+                        <tr>
+                            <th>Offered Price</th>
+                            <td>&#8377;{{product.sale_price}}
+                                <script>
+                                    let t = "{{product.product_price}}";
+                                    let s = "{{product.sale_price}}";
+                                    let dis = 100 - ((s / t) * 100)
+                                    document.write("<strong class='text-danger'>(" + Math.round(dis, 2) + "%)</strong>")
+    
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Product Description</th>
+                            <td style="text-align: justify;">{{product.details}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+        <div class="col-md-6 mt-4">
+            <div class="row">
+                <div class="col-md-12 my-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Seller Detail</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{{product.seller_name.first_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Name</th>
+                                        <td>{{product.seller_name.last_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{product.seller_name.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Member Since</th>
+                                        <td>{{product.seller_name.date_joined}}</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <h4 class="alert alert-secondary">Category Details</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Category ID</th>
+                                <td>{{product.product_category.id}}</td>
+                            </tr>
+                            <tr>
+                                <th>Category Name</th>
+                                <td>{{product.product_category.cat_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Category Image</th>
+                                <td><img src="/media/{{product.product_category.cover_pic}}" alt=""
+                                        style="width: 200px; height: 150px;"></td>
+                            </tr>
+                            <tr>
+                                <th>Category Description</th>
+                                <td style="text-align: justify;">{{product.product_category.description}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
